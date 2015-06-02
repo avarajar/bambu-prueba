@@ -1,0 +1,339 @@
+<html>
+<LINK href='css/estilos.css' type=text/css rel=stylesheet> 
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+<meta charset="utf-8">
+<head>
+	<title>Productos</title>
+</head>
+<header>
+	<img src="img/header.png" id="splash">
+</header>
+
+<body>
+
+  <figure id="figure">
+<!--     <img src="img/Banner---Categoria.png" height= "57" width="200">
+ -->  </figure>
+ <br>
+
+ <div class="modal fade bs-example-modal-sm" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+    <div class="modal-content">
+    <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="gridSystemModalLabel">Confirmar</h4>
+        </div>
+      ¿Estas seguro que deseas agregar este producto a la lista?
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-success"><div class="lista"></div></button> 
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Cancelar</button>
+        </div>
+    </div>
+  </div>
+</div>
+	<figure id="figure2"> 
+		<!-- <a href="#" id="consumibles"><img src="img/Icono---bocados-de-diseno.png" height= "57" width="100"></a>
+		<a href="#" id="profesionales"><img src="img/Icono---El-toque-profesional.png" height= "57" width="100"></a><br>
+		<a href="#" id="accesorios"><img src="img/icono---Para-llevar-puesto.png" height= "57" width="100"></a>
+		<a href="#" id="tecnologia"><img src="img/Iconos---Hacia-el-futuro.png" height= "57" width="100"></a><br>
+		<a href="#" id="hogar"><img src="img/icono---vivir-del-diseno.png" height= "57" width="100"></a> -->
+	</figure>
+
+
+
+	
+
+<script type="text/javascript">
+       $(document).ready(function () {
+
+          var src = String( window.location.href ).split('=')[1];
+          var URL = "http://45.55.193.198/api/productos/?id="+src+"&format=json";
+      
+ var lista = "<a href='lista.html?var="+src+"'>Agregar</a>";
+ $(".lista").html(lista);
+               var cadena = $.getJSON(URL, function (data) {
+                   var cad='';
+                   var aux = '';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ( "<b> " +data[i].nombre+"</b><br /> "+
+                            "<img height= 100 width=200 src="+data[i].imagen_principal+"><br /> "+
+                            "<img height= 40 width=80 src="+data[i].imagen_dos+">"+
+                            "<img height= 40 width=80 src="+data[i].imagen_tres+"> "+
+                            "<img height= 40 width=80 src="+data[i].imagen_cuatro+">");
+                        for (var j = data[i].colores.length - 1; j >= 0; j--) {
+
+                          aux += ""+
+                                    "<option value="+data[i].colores[j].nombre+">"+data[i].colores[j].nombre+"</option>"+
+                                "";
+                        };
+                        cad += "<b><p>Escoje color</p></b><br>"+"<select class= 'form-control mobileSelect' >"+
+                                    aux+
+                                "</select>";
+                        cad += "<br><p>"+data[i].descripcion+"</p>";
+                        cad += "<br><div class ='agregar'><button type=button class='btn btn-success' data-toggle='modal' data-target='.bs-example-modal-sm'>Agregar</button></div>"
+
+                    };
+                   
+                   $("#figure").html(cad);
+               })
+    $('#accesorios').on('click',function () {
+               
+                var URL = "http://45.55.193.198/api/categorias/?categoria=accesorios&format=json";
+                var URL1 = "http://45.55.193.198/api/productos/?categoria=accesorios&format=json";
+
+               var cadena = $.getJSON(URL, function (data) {
+                   var cad='';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ( "<br /> " +
+                            "<img height= 100 width=200 src="+data[i].imagen_principal+"><br /> ");
+                    };
+                   
+                   $("#figure").html(cad);
+               })
+
+               
+               var cadena1 = $.getJSON(URL1, function (data) {
+                   var cad1='';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad1 += ("<b>" + data[i].nombre + "</b><br /> " +
+                            "<img height= 137 width=200 src="+data[i].imagen_principal+"><br /><hr> ");
+                    };
+                   
+                   $("#figure2").html(cad1);
+               })     
+           })
+          
+          $('#hogar').on('click',function () {
+               
+                var URL = "http://45.55.193.198/api/categorias/?categoria=hogar&format=json";
+                var URL1 = "http://45.55.193.198/api/productos/?categoria=hogar&format=json";
+
+               var cadena = $.getJSON(URL, function (data) {
+                   var cad='';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ( "<br /> " +
+                            "<img height= 100 width=200 src="+data[i].imagen_principal+"><br /> ");
+                    };
+                   
+                   $("#figure").html(cad);
+               })
+
+               
+               var cadena1 = $.getJSON(URL1, function (data) {
+                   var cad1='';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad1 += ("<b>" + data[i].nombre + "</b><br /> " +
+                            "<img height= 137 width=200 src="+data[i].imagen_principal+"><br /><hr> ");
+                    };
+                   
+                   $("#figure2").html(cad1);
+               })     
+           })
+
+          $('#consumibles').on('click',function () {
+               
+                var URL = "http://45.55.193.198/api/categorias/?categoria=consumibles&format=json";
+                var URL1 = "http://45.55.193.198/api/productos/?categoria=consumibles&format=json";
+
+               var cadena = $.getJSON(URL, function (data) {
+                   var cad='';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ( "<br /> " +
+                            "<img height= 100 width=200 src="+data[i].imagen_principal+"><br /> ");
+                    };
+                   
+                   $("#figure").html(cad);
+               })
+
+               
+               var cadena1 = $.getJSON(URL1, function (data) {
+                   var cad1='';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad1 += ("<b>" + data[i].nombre + "</b><br /> " +
+                            "<img height= 137 width=200 src="+data[i].imagen_principal+"><br /><hr> ");
+                    };
+                   
+                   $("#figure2").html(cad1);
+               })     
+           })
+          
+          $('#tecnologia').on('click',function () {
+               
+                var URL = "http://45.55.193.198/api/categorias/?categoria=tecnologia&format=json";
+                var URL1 = "http://45.55.193.198/api/productos/?categoria=tecnologia&format=json";
+
+               var cadena = $.getJSON(URL, function (data) {
+                   var cad='';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ( "<br /> " +
+                            "<img height= 100 width=200 src="+data[i].imagen_principal+"><br /> ");
+                    };
+                   
+                   $("#figure").html(cad);
+               })
+
+               
+               var cadena1 = $.getJSON(URL1, function (data) {
+                   var cad1='';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad1 += ("<b>" + data[i].nombre + "</b><br /> " +
+                            "<img height= 137 width=200 src="+data[i].imagen_principal+"><br /><hr> ");
+                    };
+                   
+                   $("#figure2").html(cad1);
+               })     
+           })
+
+
+
+
+
+       });
+    </script>
+<script type="text/javascript">
+  
+$('.mobileSelect').mobileSelect({
+    animation: 'scale',
+    animationSpeed: 400
+});
+    
+
+
+</script>
+
+    <script type="text/javascript">
+       $(document).ready(function () {
+
+           $('#categoria2').on('click',function () {
+               var cad = "<img height= 137 width=200 src=img/Banners-05.png><br />Los productos son:<br />";
+                var URL = "http://bambu-prueba.herokuapp.com/api-prueba-bambu/proyectos/?categoria=consumibles&format=json";
+                
+
+               
+               var cadena = $.getJSON(URL, function (data) {
+
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ("<br />" + data[i].nombre + "<br /> " +
+                            "<img height= 137 width=200 src=http://avarajame.com/media-bambu/"+data[i].img_principal+"><br /> " +
+                           data[i].codigo );
+                    };
+                   
+                   $("#figure2").html(cad);
+               })     
+           })
+       });
+    </script>
+
+    <script type="text/javascript">
+       $(document).ready(function () {
+
+           $('#categoria3').on('click',function () {
+               var cad = "<img height= 137 width=200 src=img/Banners-07.png><br />Los productos son:<br />";
+                var URL = "http://bambu-prueba.herokuapp.com/api-prueba-bambu/proyectos/?categoria=hogar&format=json";
+                
+
+               
+               var cadena = $.getJSON(URL, function (data) {
+
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ("<br />" + data[i].nombre + "<br /> " +
+                            "<img height= 137 width=200 src=http://avarajame.com/media-bambu/"+data[i].img_principal+"><br /> " +
+                           data[i].codigo );
+                    };
+                   
+                   $("#figure2").html(cad);
+               })     
+           })
+       });
+    </script>
+
+    <script type="text/javascript">
+       $(document).ready(function () {
+
+           $('#categoria4').on('click',function () {
+               var cad = "<img height= 137 width=200 src=img/Banners-09.png><br />Los productos son:<br />";
+                var URL = "http://bambu-prueba.herokuapp.com/api-prueba-bambu/proyectos/?categoria=oficina&format=json";
+                
+
+               
+               var cadena = $.getJSON(URL, function (data) {
+
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ("<br />" + data[i].nombre + "<br /> " +
+                            "<img height= 137 width=200 src=http://avarajame.com/media-bambu/"+data[i].img_principal+"><br /> " +
+                           data[i].codigo );
+                    };
+                   
+                   $("#figure2").html(cad);
+               })     
+           })
+       });
+    </script>
+
+    <script type="text/javascript">
+       $(document).ready(function () {
+
+           $('#categoria5').on('click',function () {
+               var cad = "<img height= 137 width=200 src=img/Banners-10.png><br />Los productos son:<br />";
+                var URL = "http://bambu-prueba.herokuapp.com/api-prueba-bambu/proyectos/?categoria=tecnologia&format=json";
+                
+
+               
+               var cadena = $.getJSON(URL, function (data) {
+
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ("<br />" + data[i].nombre + "<br /> " +
+                            "<img height= 137 width=200 src=http://avarajame.com/media-bambu/"+data[i].img_principal+"><br /> " +
+                           data[i].codigo );
+                    };
+                   
+                   $("#figure2").html(cad);
+               })     
+           })
+       });
+    </script>
+
+</body>
+
+<nav>
+<ul>
+	<li><a href="index.html" ><img src="img/inicio.png" height= "25" width="15" ><br><a/></li>
+    <li><a href="Categorias.html" ><img src="img/categorias.png" height= "25" width="15"><br><a/></li>
+    <li><a href="#" ><img src="img/cotizacion.png"height= "25" width="15" ><br><a/></li>
+    <li><a href= http://www.mapale.com.co/ ><img src="img/mapale.png" height= "25" width="15"><br><a/></li>
+</ul>
+</nav>
+
+</html>
