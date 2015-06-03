@@ -20,7 +20,7 @@
 </header>
 
 <body>
-
+<div class="header"></div>
   <figure id="figure">
 <!--     <img src="img/Banner---Categoria.png" height= "57" width="200">
  -->  </figure>
@@ -59,6 +59,16 @@
 
           var src = String( window.location.href ).split('=')[1];
           var URL = "http://45.55.193.198/api/productos/?id="+src+"&format=json";
+          var URL1 = "http://45.55.193.198/api/menu/?nombre=lista&format=json";
+
+
+          var menu = $.getJSON(URL1, function (data) {
+                aux = '';
+                for (var i =data.length - 1; i >= 0; i--) {
+                  aux += "<img height= 100 width=300 src="+data[i].imagen_principal+"><br /> ";
+                };
+                $(".header").html(aux);
+              })
       
  var lista = "<a href='lista.html?var="+src+"'>Agregar</a>";
  $(".lista").html(lista);
@@ -73,7 +83,7 @@
                         
                        
                         cad += "<div class='col-md-1'><p>"+data[i].descripcion+"</p></div>";
-                        cad += "<div class=col-md-1 agregar'><button type=button class='btn btn-success' data-toggle='modal' data-target='.bs-example-modal-sm'>Cotizar</button></div></div><hr> "
+                        cad += "<div class=col-md-1 agregar'><a href = 'form.html'><button type=button class='btn btn-success' data-toggle='' data-target=''>Cotizar</button></a></div></div><hr> "
 
                     };
                    

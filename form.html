@@ -12,17 +12,15 @@
 
 <meta charset="utf-8">
 <head>
-	<title>Productos</title>
+    <title>Lista</title>
 </head>
 <header>
-	<img src="img/header.png" id="splash">
+    <img src="img/header.png" id="splash">
 </header>
 
 <body>
 <div class="header"></div>
-
   <figure id="figure">
-
 <!--     <img src="img/Banner---Categoria.png" height= "57" width="200">
  -->  </figure>
  <br>
@@ -43,17 +41,37 @@
     </div>
   </div>
 </div>
-	<figure id="figure2"> 
-		<!-- <a href="#" id="consumibles"><img src="img/Icono---bocados-de-diseno.png" height= "57" width="100"></a>
-		<a href="#" id="profesionales"><img src="img/Icono---El-toque-profesional.png" height= "57" width="100"></a><br>
-		<a href="#" id="accesorios"><img src="img/icono---Para-llevar-puesto.png" height= "57" width="100"></a>
-		<a href="#" id="tecnologia"><img src="img/Iconos---Hacia-el-futuro.png" height= "57" width="100"></a><br>
-		<a href="#" id="hogar"><img src="img/icono---vivir-del-diseno.png" height= "57" width="100"></a> -->
-	</figure>
+    <figure id="figure2"> 
+        <!-- <a href="#" id="consumibles"><img src="img/Icono---bocados-de-diseno.png" height= "57" width="100"></a>
+        <a href="#" id="profesionales"><img src="img/Icono---El-toque-profesional.png" height= "57" width="100"></a><br>
+        <a href="#" id="accesorios"><img src="img/icono---Para-llevar-puesto.png" height= "57" width="100"></a>
+        <a href="#" id="tecnologia"><img src="img/Iconos---Hacia-el-futuro.png" height= "57" width="100"></a><br>
+        <a href="#" id="hogar"><img src="img/icono---vivir-del-diseno.png" height= "57" width="100"></a> -->
+    </figure>
+<form>
+  <div class="form-group">
+    <label for="exampleInputEmail1">Email address</label>
+    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputPassword1">Password</label>
+    <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+  </div>
+  <div class="form-group">
+    <label for="exampleInputFile">File input</label>
+    <input type="file" id="exampleInputFile">
+    <p class="help-block">Example block-level help text here.</p>
+  </div>
+  <div class="checkbox">
+    <label>
+      <input type="checkbox"> Check me out
+    </label>
+  </div>
+  <button type="submit" class="btn btn-default">Submit</button>
+</form>
 
 
-
-	
+    
 
 <script type="text/javascript">
        $(document).ready(function () {
@@ -61,42 +79,30 @@
           var src = String( window.location.href ).split('=')[1];
           var URL = "http://45.55.193.198/api/productos/?id="+src+"&format=json";
           var URL1 = "http://45.55.193.198/api/menu/?nombre=lista&format=json";
-      
- var lista = "<a href='lista.html?var="+src+"'>Agregar</a>";
- $(".lista").html(lista);
 
-              var menu = $.getJSON(URL1, function (data) {
+
+          var menu = $.getJSON(URL1, function (data) {
                 aux = '';
                 for (var i =data.length - 1; i >= 0; i--) {
                   aux += "<img height= 100 width=300 src="+data[i].imagen_principal+"><br /> ";
                 };
                 $(".header").html(aux);
               })
-
-
-
+      
+ var lista = "<a href='lista.html?var="+src+"'>Agregar</a>";
+ $(".lista").html(lista);
                var cadena = $.getJSON(URL, function (data) {
                    var cad='';
                    var aux = '';
                     /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
                     console.log(data.length);
                     for (var i = data.length - 1; i >= 0; i--) {
-                        cad += ( "<b> " +data[i].nombre+"</b><br /> "+
-                            "<img height= 100 width=200 src="+data[i].imagen_principal+"><br /> "+
-                            "<img height= 40 width=80 src="+data[i].imagen_dos+">"+
-                            "<img height= 40 width=80 src="+data[i].imagen_tres+"> "+
-                            "<img height= 40 width=80 src="+data[i].imagen_cuatro+">");
-                        for (var j = data[i].colores.length - 1; j >= 0; j--) {
-
-                          aux += ""+
-                                    "<option value="+data[i].colores[j].nombre+">"+data[i].colores[j].nombre+"</option>"+
-                                "";
-                        };
-                        cad += "<b><p>Escoje color</p></b><br>"+"<select class= 'form-control mobileSelect' >"+
-                                    aux+
-                                "</select>";
-                        cad += "<br><p>"+data[i].descripcion+"</p>";
-                        cad += "<br><div class ='agregar'><button type=button class='btn btn-success' data-toggle='modal' data-target='.bs-example-modal-sm'>Agregar</button></div>"
+                        cad += ( "<div class='row'><div class='col-md-1'><img height= 60 width=110 src="+data[i].imagen_principal+"></div>"+
+                            "<div class='col-md-1'><b>" +data[i].nombre+"</b></div> " );
+                        
+                       
+                        cad += "<div class='col-md-1'><p>"+data[i].descripcion+"</p></div>";
+                        cad += "<div class=col-md-1 agregar'><a href = 'form.html'><button type=button class='btn btn-success' data-toggle='' data-target=''>Cotizar</button></a></div></div><hr> "
 
                     };
                    
@@ -343,7 +349,7 @@ $('.mobileSelect').mobileSelect({
 
 <nav>
 <ul>
-	<li><a href="index.html" ><img src="img/inicio.png" height= "25" width="15" ><br><a/></li>
+    <li><a href="index.html" ><img src="img/inicio.png" height= "25" width="15" ><br><a/></li>
     <li><a href="Categorias.html" ><img src="img/categorias.png" height= "25" width="15"><br><a/></li>
     <li><a href="#" ><img src="img/cotizacion.png"height= "25" width="15" ><br><a/></li>
     <li><a href= http://www.mapale.com.co/ ><img src="img/mapale.png" height= "25" width="15"><br><a/></li>

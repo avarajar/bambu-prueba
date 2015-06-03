@@ -1,11 +1,21 @@
 <html>
 <LINK href='css/estilos.css' type=text/css rel=stylesheet> 
+<script type="text/javascript" src="js/jquery-1.11.2.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 <meta charset="utf-8">
 <head>
 	<title>Bambu</title>
 </head>
 <header>
 	<img src="img/header.png" id="splash">
+	<br>
 </header>
 <body>
 
@@ -13,15 +23,37 @@
 <img src="img/slider.png" id="imagen">
 </figure>
 
-<br><br>
-
+<br>
+<h4> Recomendados </h4><hr>
+<div class="row recomendados"></div><div class="verde"><hr></div>
 <p id="texto">
-	<a href="">Novedades</a><br><br>
-	<a href="">Promociones</a><br><br>
-	<a href="">Favoritos</a><br><br>
+	<a href="">Lo Nuevo</a><br>
+	<a href="">Los Imperdibles</a><br>
+	<a href="">LOS MÁS</a><br>
 </p>
 
-  
+  <script type="text/javascript">
+       $(document).ready(function () {
+
+                var URL = "http://45.55.193.198/api/productos/?recomendado=True&format=json";
+
+               var cadena = $.getJSON(URL, function (data) {
+                   var cad='';
+                    /*var cad = "<img height= 137 width=200 src=img/Banners-03.png><br />Los productos son:<br />"*/;
+                    console.log(data.length);
+                    for (var i = data.length - 1; i >= 0; i--) {
+                        cad += ( "<div class = 'col-md-1'> " +
+                            "<img height= 70 width=150 src="+data[i].imagen_principal+"><br /> "+
+                            "<p>"+data[i].nombre+"</div>");
+                    };
+                   
+                   $(".recomendados").html(cad);
+               })
+
+
+
+       });
+    </script>
 
 </body>
 
