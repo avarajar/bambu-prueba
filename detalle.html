@@ -32,7 +32,7 @@
           <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title" id="gridSystemModalLabel">Confirmar</h4>
         </div>
-      ¿Estas seguro de enviar los datos?
+      ¿Segura que desea enviar la cotizacion?
 
       <div class="modal-footer">
         <button type="button" class="btn btn-success"><div class="lista"></div></button> 
@@ -50,24 +50,28 @@
     </figure>
 
     <h3>Cotiza en tres pasos </h3>
-    <h4>Registra tus datos</h4>
 <form>
   
   <div class="form-group">
-    <label for="exampleInputPassword1">Nombre</label>
-    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Nombre">
+    <label for="exampleInputPassword1">Cantidad</label>
+    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="000000">
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail1">Compañia</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Compañia">
+    <label for="exampleInputEmail1">Fecha</label>
+    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="dd/mm/aa">
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail1">Email</label>
-    <input type="email" class="form-control" id="exampleInputEmail1" placeholder="email">
+    <label for="exampleInputEmail1">Logo</label>
+    <!-- <input type="text" class="form-control" id="exampleInputEmail1" placeholder="email"> -->
+    <select> 
+    <option>1</option>
+    <option>2</option>
+    <option>3</option>
+    </select>
   </div>
   <div class="form-group">
-    <label for="exampleInputEmail1">Telefono</label>
-    <input type="text" class="form-control" id="exampleInputEmail1" placeholder="Telefono">
+    <label for="exampleInputEmail1">Observaciones</label>
+    <textarea type="text" class="form-control" id="exampleInputEmail1" placeholder="Observaciones"></textarea>
   </div>
 
   <!-- <div class="form-group">
@@ -102,7 +106,7 @@
                 $(".header").html(aux);
               })
       
- var lista = "<a href='detalle.html'>Agregar</a>";
+ var lista = "<a href='cotizacion.html'>Enviar</a>";
  $(".lista").html(lista);
                var cadena = $.getJSON(URL, function (data) {
                    var cad='';
